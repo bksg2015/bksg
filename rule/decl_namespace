@@ -1,0 +1,8 @@
+*NamespaceDeclaration* :
+    **namespace** *ScopeSpecidifer* *NamespaceName* **{** *Declarations* 
+
+*ScopeSpecifier* :
+    (*NamespaceName* **.**)\*
+
+*NamespaceName* : 
+    *Identifier*

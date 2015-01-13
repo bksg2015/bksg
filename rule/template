@@ -1,0 +1,41 @@
+*TemplateDeclaration*:
+    *ModuleTemplateDeclaration*
+    *TypeTemplateDeclaration*
+    *FunctionTemplateDeclartion*
+    *NamespaceTemplateDeclaration*
+
+*TemplateParameterList*:
+    **(**(*TemplateParameter* **,**)\* *TemplateParameterLast* **)**
+
+*TemplateParameter*:
+    *TemplateTypeParameter* 
+    *TemplateValueParameter* 
+    *TemplateTupleParameter* 
+    *TemplateThisParameter* 
+
+*TemplateTypeParameter*:
+    **class** *Identifier* *TemplateTypeParameterDefault*? 
+
+*TemplateTypeParameterDefault:
+    **=** *Type*
+
+*TemplateTypeConcept*:
+    **:** *Identifier*
+
+*TemplateValueParameter*
+    *Identifier* *TemplateValueParameterDefault*?
+
+*TemplateValueParameterDefault*
+    **=** *Expression*
+
+*TemplateArgumentList*:
+    **(**(*TemplateParameter* **,**)\* *TemplateParameter* **)**
+
+*TemplateArgumentList*:
+    *TemplateTypeArgument*
+    *TemplateValueArgument*
+    *TemplateTupleArgument*
+
+*TemplateTypeArgument*:
+    *DirectTypeSpecifier*
+

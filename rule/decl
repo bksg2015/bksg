@@ -1,0 +1,13 @@
+*Declaration* :
+    *AliasDeclaration* **;**
+    *ExpressionDeclaration* **;**
+    *EnumDeclaration* **;**
+    *FunctionDeclaration* **;**
+    *ImportDeclaration*  **;**
+    *ModuleDeclaration*  **;**
+    *NamespaceDeclaration* **;**
+    *TypeDeclaration* **;**
+    *VariableDeclaration* **;**
+
+*Declarations* :
+    *Declaration*\* **}**

@@ -1,0 +1,14 @@
+*ModuleDeclaration* :
+    **Module** *ModuleFullyQualifiedName* ;
+
+*ModuleFullyQualifiedName* :
+    *PackageNames* *ModuleName*
+
+*ModuleName* :
+    *Identifier*
+
+*PackageNames* :
+    (*PackageName* **.**)\*
+
+*PackageName* :
+    *Identifier*

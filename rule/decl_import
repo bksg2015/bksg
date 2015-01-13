@@ -1,0 +1,24 @@
+*ImportDeclaration* :
+    **import** *ImportAttribute* *ImportList*
+
+*ImportAttribute* :
+    **public**? **static**?
+
+*ImportList* :
+    (*Import* **,**)\* *Import*
+    *ImportBindingList*
+
+*Import* :
+    *ModuleAlias*? *ModuleFullyQualifiedName*
+
+*ModuleAlias* :
+    *ModuleAliasName* **=** 
+
+*ModuleAliasName* :
+    *Identifier*
+
+*ImportBindList* :
+    (*ImportBind* **,**)* *ImportBind*
+
+*ImportBind* :
+    *Identifier* (**=** *Identifier*)?

@@ -1,0 +1,26 @@
+*TypeSpecifier*:
+    *AutoTypeSpecifier* | *DecltypeAutoTypeSpecifier* | *DirectTypeSpecifier*
+
+*Type* :
+    *BasicType* *TypeQualifiers*
+
+*BasicType* :
+    *CoreType*
+    *ScopeSpecifier*? *TemplateInstance*
+
+*CoreType* :
+    **void**
+    **bool**
+    **char**
+
+*BasicType* :
+    *Identifier*
+
+*TemplateInstance* :
+    *TemplateName* *TemplateParameterList*?
+
+*TypeQualifiers* :
+    *TypeQualifier*\*
+
+*TypeQualifier* :
+    **const**
