@@ -1,7 +1,7 @@
 #pragma once
-#include "../string/string_view.hpp"
-#include "../ast/module.hpp"
-#include "../error/error_handler.hpp"
+#include "../string/string_iterator.hpp"
+// #include "../ast/module.hpp"
+// #include "../error/error_handler.hpp"
 #include "token.hpp"
 #include "manager.hpp"
 
