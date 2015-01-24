@@ -1,14 +1,14 @@
-CC = clang++
+CC = g++
 CXXFLAGS = -O3 -std=c++11
-LIBFLAGS = -lgmpxx
 
 NAMELIST = declaration expression integer lex template_instance type
 TARGET = parser
+OBJS = ../string/string_iterator.o
 
 all : $(TARGET)
 
 $(TARGET): $(addsuffix .o,$(NAMELIST))
-	$(CC) $(CXXFLAGS) $(LIBFLAGS) $(addsuffix .o,$(NAMELIST)) -o $(TARGET).o
+	$(CC) $(CXXFLAGS) $(addsuffix .o,$(NAMELIST)) $(OBJS) -o $(TARGET).o
 
 .cpp.o : $< $(<:.cpp=.hpp)
 	$(CC) $(CXXFLAGS) $< -c -o $(<:.cpp=.o)
