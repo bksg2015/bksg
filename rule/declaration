@@ -1,0 +1,32 @@
+Declaration :
+    VariableDeclaration
+
+VariableDeclaration :
+    "var" Type VariableName VariableInitializer?
+
+Type : 
+    Identifier
+
+VariableName :
+    Identifier
+
+VariableInitializer :
+    "=" Expression ";"
+
+FunctionDeclaration :
+   "funtion" FunctionName FunctionParameter FunctionReturnType FunctionBody
+
+FunctionName :
+    Identifier
+
+FunctionParameters :
+    "(" FunctionParameter? ("," FunctionParameter)* ")"
+
+FunctionParameter :
+    FunctionParameterType FunctionParameterName?
+
+FunctionParameterType :
+    TemplateInstance FunctionParameterAttribute
+
+FunctionParameterName :
+    Identifier

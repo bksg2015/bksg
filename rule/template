@@ -10,7 +10,6 @@
 *TemplateParameter*:
     *TemplateTypeParameter* 
     *TemplateValueParameter* 
-    *TemplateTupleParameter* 
     *TemplateThisParameter* 
 
 *TemplateTypeParameter*:
@@ -32,10 +31,15 @@
     **(**(*TemplateParameter* **,**)\* *TemplateParameter* **)**
 
 *TemplateArgumentList*:
+    **(** (*TemplateArgument* **,**)\* *TemplateArgument* **)**
+
+*TemplateArgument* :
     *TemplateTypeArgument*
     *TemplateValueArgument*
-    *TemplateTupleArgument*
 
 *TemplateTypeArgument*:
-    *DirectTypeSpecifier*
+    *Type*
+
+*TemplateValueArgument*
+    *Expression*
 

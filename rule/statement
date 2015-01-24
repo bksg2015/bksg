@@ -1,0 +1,18 @@
+Statement :
+    BlockStatement
+    NonBlockStatement
+
+NonBlockStatement :
+    ExpressionEvaluationStatement
+    DeclarationStatement
+
+ExpressionEvaluationStatement :
+    Expression ";"
+
+DeclarationStatement :
+    NonModuleDeclaration   
+
+BlockStatement :
+    "{" Statement* "}"
+
+

@@ -1,26 +1,26 @@
-*TypeSpecifier*:
-    *AutoTypeSpecifier* | *DecltypeAutoTypeSpecifier* | *DirectTypeSpecifier*
+Type :
+    BasicType BasicType2? TypeQualifiers
 
-*Type* :
-    *BasicType* *TypeQualifiers*
+BasicType :
+    TemplateInstance ("." TemplateInstance)*
 
-*BasicType* :
-    *CoreType*
-    *ScopeSpecifier*? *TemplateInstance*
+TypeName :
+    TemplateInstance
 
-*CoreType* :
-    **void**
-    **bool**
-    **char**
+TemplateInstance :
+    TemplateName TemplateParameterList?
 
-*BasicType* :
-    *Identifier*
+TemplateName :
+    Identifier
 
-*TemplateInstance* :
-    *TemplateName* *TemplateParameterList*?
+TemplateParameterList :
+    "!(" (Identifier ("," Identifier)*)? ")"
 
-*TypeQualifiers* :
-    *TypeQualifier*\*
+BasicType2 :
+    "*"
 
-*TypeQualifier* :
-    **const**
+TypeQualifiers :
+    TypeQualifier*
+
+TypeQualifier :
+    "const"

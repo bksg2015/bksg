@@ -1,72 +1,67 @@
-*Character* :
+SourceCharCode :
+
+Character :
     is a set of character available in sources.
     this set **should** containe any "printable" character in ASCII characters at least.
 
-"PrintableCharacter* :
+PrintableCharacter :
     is a subset of *Character*
     characters in *PrintableCharacter* can be seen physically in sourcecodes.
     
-*Letter* :  
+Letter :  
     is a subset of *PrintableCharacter*
     this set **should** containe alphabets and numbers at least.
     this set is used to define *Identifier*
 
-*SpecialCharacter* :
+SpecialCharacter :
     is a subset of *PrintableCharacter* and disjoint to *Letter*
 
-*WhiteSpace* :
+WhiteSpace :
     is a subset of *Character* which represents whitespaces like ' ' or \t.
     this set is used to separate *Token*s only.
 
-*EndOfLine* : 
+EndOfLine : 
     is a subset of *WhiteSpace* which represents end of line like \n.
     this set is used to define LineComment only.
 
-*TokenSequence* : 
-    *TokenSeparater*? (*Token* *TokenSeparator*?)* 
+EndOfFile : 
 
-*TokenSeparator* :
-    (*WhiteSpace* | *Comment*)\+
+WhiteSpaces :
+    WhiteSpace+
 
-*Comment* :
-    *BlockComment* | *LineComment*
+Comment :
+    BlockComment | LineComment
 
-*BlockComment*
-    **/\*** (!**\*/** *Characters*)\* **\*/**
+BlockComment
+    "/*" (!(EndOfFile | "*/")  Character)* (EndOfFile | "*/")
 
-*LineComment*
-    **//** (!*EnfOfLine* Characters)\* *EndOfLine*
+LineComment
+    "//" (!(EndOfFile | EnfOfLine) Character)* (EndOfFile | EndOfLine)
 
-*Token* :
-    *TokenSeparator* | *StringLiteral* | *CharacterLiteral* | *IntegerLiteral* | *keyword* | *Identifier* | *SpecialCharacterSequence*
+Identifier :
+    Letter (Letter | Digit)*
 
-*Identifier* :
-    !*Digit* *Letter*\+
+CharacterLiteral :
+    "\'" !(EndOfFile | "\'")  (EscapeSequence | Character) "\'"
 
-*StringLiteral* :
-    **"** (!**"** (*EscapeSequence* | *Character*))\* **"**
+StringLiteral :
+    "\"" (!(EndOfFile | "\'")  (EscapeSequence | Character))* "\""
 
-*CharacterLiteral* :
-    **'** (*EscapeSequence* | *Character*) **'**
+IntegerLiteral :
+    Integer
 
-*IntegerLiteral* :
-    *Integer*
+Integer :
+    (BinaryInteger | HexadecimalInteger | DecimalInteger)
 
-*Integer* :
-    (*BinaryInteger* | *HexadecimalInteger* | *DecimalInteger*)
+BinaryInteger :
+    ("0b" | "0B") ("0" | "1" | "_" )*
 
-*BinaryInteger* :
-    (**0b** | **0B**) (**0** | **1**)*
+HexadecimalInteger :
+    ("0x" | "0X") (Digit | [a-fA-F] | "_")*
 
-*HexadecimalInteger* :
-    (**0x** | **0X**) (*Digit* | *[a-fA-F]*)*
-
-*DecimalInteger* :
-    (*Digit* | **_**)\*
+DecimalInteger :
+    Digit ("Digit" | "_")*
 
 *SpecialCharacterSequence* :
     **(** | **)** | **{** | **}** | **[** | **]** | *SpecialCharacter*+
 
-*Keyword* :
-    **module**
-    **class**

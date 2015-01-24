@@ -1,0 +1,35 @@
+Expression :
+    CommaExpression
+
+CommaExpression : 
+    AssignExpression ("," AssignExprssion)*
+
+AssignExpression : 
+    PrimaryExpression (AssignOperator PrimaryExpression)*
+
+AssignOperator :
+    "=" 
+
+    
+FunctionCallExpression : 
+    FunctionName Expression * 
+
+FunctionName : 
+    Operator
+    PrimaryExpression ":"
+
+Operator : 
+
+FunctionObject :
+    Identifier
+
+PrimaryExpression :
+    TemplateInstance ("." Identity)*
+    "This"
+    "true"
+    "false"
+    IntegerLiteral
+    FloatingLiteral
+    CharacterLiteral
+    StringLiteral
+    "(" Expression ")"

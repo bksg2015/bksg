@@ -1,0 +1,103 @@
+Expression :
+    AssignExpression
+    
+AssignExpression :
+    ConditionalExpression (AssignOperator ConditionalExpression)*
+
+AssignOperator :
+    "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "|=" | "^=" | "~=" | "<<=" | ">>=" | ">>>=" | "^^="
+
+ConditionalExpression :
+    OrOrExpression ("?" Expression ":" ConditionalExpression)*
+
+OrOrExpression :
+    AndAndExpression  ("||" AndAndExpression)*
+
+AndAndExpression :
+    (OrExpression | CmpExpression ("&&" (OrExpression | CmpExpression))*
+
+OrExpression :
+    XorExpression ("|" XorExpression)*
+
+XorExpression : 
+    AndExpression ("^" AndExpression)*
+
+AndExpression :
+    ShiftExpression ("&" ShiftExpression)*
+
+CmpExpression :
+    ShiftExpression 
+    EqualityExpresion
+    RelativityExpression
+
+EqualityExpression :
+    ShiftExpression ("==" | "!=") ShiftExpression 
+
+RelativityExpression :
+    ShitExpression (RelativityOperator ShiftExpression)*
+
+RelativityOperator : 
+    "<=" | "<" | ">=" | ">"  
+
+ShiftExpression : 
+    AddExpression (ShiftOperator AddExpression)*
+
+ShiftOperator :
+    "<<" | "<<<" | ">>" | ">>>"
+
+AddExpression : 
+    MulExpression (AddOperator MulExpression)*
+
+AddOperator :
+    "+" | "-"
+
+MulExpression : 
+    UnaryExpression (MulOperator UnaryExpression)*
+
+MulOperator : 
+    "*" | "/" | "%"
+
+UnaryExpression :
+    UnaryOperator (NewExpression | DeleteExpression | PowExpression)
+    
+UnaryOperator : 
+    "!"
+    "~"
+    "&"
+    "++"
+    "--"
+    "+"
+    "-"
+
+NewExpression : 
+    "new" AllocatorArgument? Type (ArgumentList? | [AssignExpression])  
+
+ArgumentList :
+    AssignExpression ("," AssignExpression)* 
+
+DeleteExpression : 
+    "delete" UnaryExpression
+
+PowExpression : 
+    PostfixExpression ("^^" UnaryExpression)
+
+PostfixExpression :
+    PrimaryExpression
+    DotExpression
+    PostfixUnaryExpression
+    BracketExpression
+    
+PostfixOperator :
+    "." TemplateInstance
+    "++"
+    "--"
+
+*PrimaryExpression* :
+    *TemplateInstance*
+    **This**
+    **true**
+    **false**
+    *IntegerLiteral*
+    *FloatingLiteral*
+    *CharacterLiteral*
+    *StringLiteral* 
