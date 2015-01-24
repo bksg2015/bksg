@@ -2,8 +2,6 @@
 #include "../string/string_view.hpp"
 #include "./type.hpp"
 #include "./scope_specifier.hpp"
-#include <vector>
-#include <memory>
 
 namespace bksg
 {

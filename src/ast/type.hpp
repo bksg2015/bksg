@@ -1,28 +1,25 @@
 #pragma once
+
+#include "identifier.hpp"
+#include "template_instance.hpp"
+#include "../string/string_iterator.hpp"
 #include <limits>
+#include <memory>
 
 namespace bksg
 {
-    enum class type_kind 
-    {
-        Void
-      , Bool
-      , Char
-      , Class 
-    };
-
     enum class type_qualifier_kind
     {
         Const
       , LvalueRef
-      , num
+      , Num
     };
     
     struct type_qualifier
     {
         using value_type = unsigned int;
         static_assert(
-            sizeof(value_type) * std::numeric_limits<value_type>::digits > int(type_qualifier_kind::num)
+            sizeof(value_type) * std::numeric_limits<value_type>::digits > int(type_qualifier_kind::Num)
           , "change type of value in type_qualifier struct."
         ); 
     private:
@@ -40,10 +37,19 @@ namespace bksg
         }
     };
 
-    struct type
+    struct ast_type
     {
-        type_kind kind;
+        std::unique_ptr<ast_template_instance> basic_type;
+        std::vector<std::unique_ptr<ast_template_instance>> basic_type_scope;
         type_qualifier qualifier;
+
+        void print (int level = 0) noexcept
+        {
+            for (int i = 0; i < level; ++i) { std::cout << "  "; }
+            std::cout << "ast_type : " << std::endl;
+            basic_type->print(level + 1);
+            for (auto & v : basic_type_scope) { v->print(level + 1); }
+        }
     };
 
 }
