@@ -5,7 +5,7 @@
 
 namespace bksg
 {
-    enum class parse_error
+    enum class error_kind
     {
         invalid_ast_cursor 
       , module_declaration_invalid
@@ -19,7 +19,7 @@ namespace bksg
       , function_body_left_bracket_missing
       , parameters_right_paren_missing
       , parameters_parameter_missing
-      , token_invalid_where_identifier_expectd
+      , token_invalid_where_identifier_expected
     };
 
     char const * parse_error_name [] = {
@@ -36,27 +36,7 @@ namespace bksg
       , "parameters_right_paren_missing"
       , "parameters_parameter_missing"
       , "token_invalid_where_identifier_expectd"
-    };
-
-    enum class error_category
-    {
-        internal_error
-      , token_error
-      , token_warning
-      , syntax_error
-      , syntax_warning
-      , semantic_error
-      , semantic_warning
-    };
-
-    char const * error_category_name [] = {
-        "internal_error"
-      , "token_error"
-      , "token_warning"
-      , "syntax_error"
-      , "syntax_warning"
-      , "semantic_error"
-      , "semantic_warning"
+      , "end_of_file"
     };
 
     struct error_ticket
@@ -65,45 +45,38 @@ namespace bksg
 
         string_view_type string_position;
         error_kind_type kind;
-        error_category category;
 
-        error_ticket (string_view_type string_position, error_kind_type kind, error_category category) noexcept
-          : string_position(string_position), kind(kind), category(category) {}
+        error_ticket (string_view_type string_position, error_kind_type kind) noexcept
+          : string_position(string_position), kind(kind)  {}
     };
 
     struct error_handler
     {
-        using error_kind_type = parse_error;
-        using error_ticket_type = error_ticket;
         using error_cursor_type = int;
 
-        std::vector<error_ticket_type> tickets;
+        std::vector<error_ticket> tickets;
         error_category category;
-        error_cursor_type error_cursor = -1;
 
         error_ticket_type & last_error () noexcept { return tickets[error_cursor]; }
 
         void fall_back (error_cursor_type cursor) { error_cursor = cursor; }
 
-        void issue (string_view_type string_position, error_kind_type kind, error_category category) noexcept
+        void issue (string_view_type string_position, error_kind_type kind) noexcept
         { 
-            std::cout << "error : " << parse_error_name[int(kind)] << ", " << error_category_name[int(category)] << std::endl;
             ++error_cursor;
-            if (tickets.size() == error_cursor) { 
-                tickets.push_back(error_ticket_type(string_position, kind, category)); 
-            } else {
-                auto & t = tickets[error_cursor];
-                t.string_position = string_position;
-                t.kind = kind;
-                t.category = category;
-            }
+            tickets.push_back(error_ticket(string_position, kind)); 
+        }
+
+        void flush () noexcept
+        {
+            tickets.clear();
         }
 
         template <typename Ostream>
         void print (Ostream & ost) noexcept
         {
             for (auto & t : tickets) {
-                ost << "error : " << parse_error_name[int(t.kind)] << ", " << error_category_name[int(t.category)] << std::endl;
+                ost << "error : " << parse_error_name[int(t.kind)] << std::endl;
                 ost << std::string(t.string_position.begin(), t.string_position.end()) << std::endl;
             }
         }
